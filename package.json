@@ -1,0 +1,19 @@
+{
+  "name": "youdao",
+  "version": "1.0.0",
+  "description": "翻译为其他语言",
+  "targetLanguages": ["ja", "en", "vi", "es", "ru", "ko"],
+  "main": "index.js",
+  "scripts": {
+    "dev": "node main.js zh_CN",
+    "to_json": "node src/translate_json.js",
+    "to_pro": "node src/translate_pro.js",
+    "to_md": "node src/translate_md.js"
+  },
+  "author": "jiucheng",
+  "license": "ISC",
+  "dependencies": {
+    "youdao-fanyi": "^2.0.0"
+  },
+  "devDependencies": {}
+}
