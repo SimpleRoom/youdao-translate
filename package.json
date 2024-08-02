@@ -2,7 +2,14 @@
   "name": "youdao",
   "version": "1.0.0",
   "description": "翻译为其他语言",
-  "targetLanguages": ["ja", "en", "vi", "es", "ru", "ko"],
+  "targetLanguages": [
+    "ja",
+    "en",
+    "vi",
+    "es",
+    "ru",
+    "ko"
+  ],
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",
@@ -13,6 +20,7 @@
   "author": "jiucheng",
   "license": "ISC",
   "dependencies": {
+    "chinese-converter": "^0.0.5",
     "youdao-fanyi": "^2.0.0"
   },
   "devDependencies": {}

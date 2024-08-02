@@ -1,6 +1,7 @@
 const Youdao = require('youdao-fanyi');
 const fs = require('fs');
 const path = require('path');
+const ChineseConverter = require( 'chinese-converter');
 const config = require("../config");
 const originData = require("../sources/zh_CN.json");
 
@@ -9,8 +10,8 @@ const fanyi = Youdao({
   appkey: config.APP_KEY,
   secret: config.APP_SECRET,
 });
-// 目标语言列表 英语,越南语,日语,西班牙语,俄语,韩语
-const targetLanguages = ["en", "vi", "ja", "es", "ru", "ko"];
+// 目标语言列表 繁体 英语,越南语,日语,西班牙语,俄语,韩语
+const targetLanguages = ["zh_tw","en", "vi", "ja", "es", "ru", "ko"];
 const maxLangCount = targetLanguages.length;
 let lang = "en";
 let langIndex = 0;//某种语言翻译完毕后就+1,直到全部翻译完毕
@@ -57,7 +58,13 @@ async function mapTranslateFn(index, lang) {
     const key = allKeyList[index];
     const nextStr = originData[key];
     if (nextStr) {
-      const str = await translateText(nextStr, { to: lang });
+      let str = nextStr;
+      if (lang == "zh_tw") {
+        // 繁体时直接转换
+        str = ChineseConverter.toTraditionalChinese(str);
+      } else {
+        str = await translateText(nextStr, { to: lang });
+      }
       if (str) {
         console.log(`successed_current`, str);
         fs.appendFileSync(path.join(__dirname, '../output_pro', `${lang}.properties`), `${key}=${str}` + '\n');
