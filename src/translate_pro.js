@@ -88,18 +88,19 @@ async function translateAndSave(originData) {
 
 function createFileFn() {
   // 使用空字符串创建并清空指定文件 zh.properties 文件
+  // 部分需要unicode翻译文件
   const createFile = path.join(__dirname, `../output_pro/${lang}.properties`);
   const encodeFile = path.join(__dirname, `../output_pro/${lang}.encode.properties`);
-  fs.writeFile(createFile,'', (err) => {
-    if (err) {
-      console.error('创建文件时发生错误:', err);
-    } else {
-      console.log(`${lang}.properties 文件已创建并清空`);
-    }
-  });
   fs.writeFile(encodeFile,'', (err) => {
     if (err) {
-      console.error('创建文件时发生错误:', err);
+      console.error(`创建${lang}.encode.properties文件错误:`, err);
+    } else {
+      console.log(`${lang}.encode.properties 文件已创建并清空`);
+    }
+  });
+  fs.writeFile(createFile,'', (err) => {
+    if (err) {
+      console.error(`创建${lang}.propertie文件错误`, err);
     } else {
       console.log(`${lang}.properties 文件已创建并清空`);
       translateAndSave(originData);
