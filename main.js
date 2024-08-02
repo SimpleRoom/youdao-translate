@@ -16,7 +16,7 @@ let isAutoAll = false;
 const tempLang = args[0] || "";
 if (tempLang == "auto") {
   isAutoAll = true;
-  console.log(`当前要生成:${tempLang}.json`);
+  console.log(`生成json之后要依次自动翻译`);
 }
 
 let isFileReadComplete = false; // 文件是否读取完毕的标志
