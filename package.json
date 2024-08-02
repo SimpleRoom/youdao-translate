@@ -5,11 +5,10 @@
   "targetLanguages": ["ja", "en", "vi", "es", "ru", "ko"],
   "main": "index.js",
   "scripts": {
-    "dev": "node main.js zh_CN",
+    "dev": "node main.js",
     "to_json": "node src/translate_json.js",
     "to_pro": "node src/translate_pro.js",
-    "to_md": "node src/translate_md.js",
-    "to_all": "node src/translate_all.js"
+    "auto": "node src/translate_all.js"
   },
   "author": "jiucheng",
   "license": "ISC",

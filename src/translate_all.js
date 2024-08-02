@@ -118,4 +118,7 @@ function createFileAutoTranslateSave() {
   });
 }
 // 先创建静态文件
-createFileAutoTranslateSave();
+// createFileAutoTranslateSave();
+module.exports = {
+  createFileAutoTranslateSave,
+}

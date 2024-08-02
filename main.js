@@ -7,14 +7,15 @@ const readline = require('readline');
 
 // 读取properties文件
 const turnData = {};
-let outputLanguage = 'zh_cn'
+let outputLanguage = 'zh_CN'
 // 翻译文件的所有key
 const allKeyList = [];
 // 获取命令行参数，去掉前两个固定参数
 const args = process.argv.slice(2) || [];
+let isAutoAll = false;
 const tempLang = args[0] || "";
-if (tempLang) {
-  outputLanguage = tempLang;
+if (tempLang == "auto") {
+  isAutoAll = true;
   console.log(`当前要生成:${tempLang}.json`);
 }
 
@@ -37,5 +38,16 @@ rl.on('line', (line) => {
 rl.on('close', () => {
   console.log(`文件读取完毕,一共读取: ${allKeyList.length} 条数据`);
   isFileReadComplete = true;
-  fs.writeFileSync(outputFilePath, JSON.stringify(turnData, null, 2));
+  fs.writeFile(outputFilePath, JSON.stringify(turnData, null, 2), (err) => {
+    if (err) {
+      console.error(`创建[${outputLanguage}.json]文件错误:`, err);
+    } else {
+      console.log(`${outputLanguage}.json文件创建成功`);
+      // 是否自动依次翻译
+      if (isAutoAll) {
+        const autoTrans = require("./src/translate_all");
+        autoTrans.createFileAutoTranslateSave();
+      }
+    }
+  });
 });

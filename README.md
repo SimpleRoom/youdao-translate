@@ -24,10 +24,7 @@ npm run to_json en
 npm run to_pro en
 
 
-4 把生成的zh_CN.json翻译为其他语言的 md 文件
-npm run to_md en
-
-5 把生成的zh_CN.json依次翻译为 英语,越南语,日语,西班牙语,俄语,韩语 保存到指定文件
-npm run to_all
+4 把生成的zh_CN.json依次翻译为 英语,越南语,日语,西班牙语,俄语,韩语 保存到指定文件
+npm run auto
 
 ```
