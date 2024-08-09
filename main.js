@@ -12,18 +12,19 @@ let outputLanguage = 'zh_CN'
 const allKeyList = [];
 // 获取命令行参数，去掉前两个固定参数
 const args = process.argv.slice(2) || [];
-let isAutoAll = false;
-const tempLang = args[0] || "";
-if (tempLang == "auto") {
-  isAutoAll = true;
-  console.log(`生成json之后要依次自动翻译`);
+const autoType = args[0] || "";
+if (autoType == "unicode") {
+  console.log(`生成json之后要依次自动翻译,并转成unicode`);
+} else if (autoType == "json") {
+  // 依次翻译为其他语言到json文件
+  console.log(`生成json之后要依次自动翻译到json文件`);
 }
 
 let isFileReadComplete = false; // 文件是否读取完毕的标志
 const outputFilePath = path.join(__dirname, `./sources/${outputLanguage}.json`);
 
 const rl = readline.createInterface({
-  input: fs.createReadStream(path.join(__dirname, './sources', 'zh_CN.properties')),
+  input: fs.createReadStream(path.join(__dirname, './sources', 'origin_CN.properties')),
   crlfDelay: Infinity
 });
 
@@ -43,9 +44,12 @@ rl.on('close', () => {
       console.error(`创建[${outputLanguage}.json]文件错误:`, err);
     } else {
       console.log(`${outputLanguage}.json文件创建成功`);
-      // 是否自动依次翻译
-      if (isAutoAll) {
+      if (autoType == "unicode") {
         const autoTrans = require("./src/translate_all");
+        autoTrans.createFileAutoTranslateSave();
+      } else if (autoType == "json") {
+        // 依次翻译为其他语言到json文件
+        const autoTrans = require("./src/translate_json");
         autoTrans.createFileAutoTranslateSave();
       }
     }

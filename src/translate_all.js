@@ -11,7 +11,7 @@ const fanyi = Youdao({
   secret: config.APP_SECRET,
 });
 // 目标语言列表 繁体 英语,越南语,日语,西班牙语,俄语,韩语
-const targetLanguages = ["zh_tw","en", "vi", "ja", "es", "ru", "ko"];
+const targetLanguages = ["zh", "zh_tw", "en", "vi", "ja", "es", "ru", "ko"];
 const maxLangCount = targetLanguages.length;
 let lang = "en";
 let langIndex = 0;//某种语言翻译完毕后就+1,直到全部翻译完毕
@@ -59,10 +59,15 @@ async function mapTranslateFn(index, lang) {
     const nextStr = originData[key];
     if (nextStr) {
       let str = nextStr;
-      if (lang == "zh_tw") {
-        // 繁体时直接转换
+      // 除了中文外其他都得翻译,中文直接转unicode后保存
+      if (lang == "zh") {
+        // 简体时直接转为unicode保存
+        str = nextStr;
+      } if (lang == "zh_tw") {
+        // 转为繁体再转为unicode保存即可
         str = ChineseConverter.toTraditionalChinese(str);
-      } else {
+      } else if (lang !== "zh" && lang !== "zh_tw") {
+        // 非中文简体、繁体得翻译
         str = await translateText(nextStr, { to: lang });
       }
       if (str) {

@@ -13,9 +13,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node main.js",
-    "to_json": "node src/translate_json.js",
-    "to_pro": "node src/translate_pro.js",
-    "auto": "node src/translate_all.js"
+    "to_json": "node src/translate_json.js"
   },
   "author": "jiucheng",
   "license": "ISC",
